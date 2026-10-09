@@ -22,12 +22,8 @@
 
 # Installation
 
-```bash
-pip install astrodrift
 ```
-
-```bash
-uv add astrodrift
+git clone https://github.com/otautahi-oxford/drift
 ```
 
 # Quickstart
@@ -49,7 +45,7 @@ trajectory, _ = sim.run()  # A stationary background has no trajectory, so _ ign
 print(trajectory[-1])
 ```
 
-See the [Getting Started notebook](https://github.com/lbparticles/astrodrift/blob/main/notebooks/getting_started.ipynb) for a full guided example.
+See the ["Getting Started" notebook][getting-started] for a full guided example.
 
 # Logging
 
@@ -64,24 +60,30 @@ logging.getLogger("drift").setLevel(logging.INFO)
 
 Use `DEBUG` to include stage progress and detailed dispatch information.
 
-See [GPU Execution](https://github.com/lbparticles/astrodrift/blob/main/docs/GPU_Execution.md) for the GPU stages and the scope of each timing record.
+See [GPU Execution](gpu-execution) for the GPU stages and the scope of each timing record.
 
 # Contribution
 
 To install from source:
 
 ```bash
-git clone https://github.com/lbparticles/astrodrift
+git clone https://github.com/otautahi-oxford/drift
 ```
 
-Enter the Nix development shell (`nix develop`) or use the provided devcontainer. Environment setup and the available `just` recipes are documented below.
+Enter the Nix development shell (`nix develop`) or use the provided devcontainer.
+Environment setup and the available `just` recipes are documented below.
 
 # Testing Instructions
 
-See [Testing_Instructions.md](https://github.com/lbparticles/astrodrift/blob/main/docs/Testing_Instructions.md)
+See [Testing_Instructions.md](test-instruction)
 
 # Contributors
 
-Jack Patterson
-Angus Forrest
-John Forbes
+- Jack Patterson
+- Angus Forrest
+- John Forbes
+
+
+[getting-started]: https://github.com/otautahi-oxford/drift/blob/main/notebooks/getting_started.ipynb
+[gpu-execution]: https://github.com/lbparticles/astrodrift/blob/main/docs/GPU_Execution.md
+[test-instruction]: https://github.com/lbparticles/astrodrift/blob/main/docs/Testing_Instructions.md

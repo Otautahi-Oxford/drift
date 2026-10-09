@@ -2,7 +2,7 @@
 name = "drift"
 version = "0.1.0"
 edition = "2024"
-repository = "https://github.com/lbparticles/astrodrift"
+repository = "https://github.com/otautahi-oxford/drift"
 license = "MIT AND BSD-2-Clause AND BSD-3-Clause"
 
 [lib]
@@ -14,7 +14,7 @@ shared = { path = "shared" }
 pyo3 = "0.28.3"
 cust = { git = "https://github.com/Rust-GPU/Rust-CUDA", package = "cust", branch = "main", optional = true }
 cuda-core = { version = "0.3.1", optional = true }
-cuda-host = { git = "https://github.com/NVlabs/cuda-oxide.git", rev = "8ac82ec761e950594db5f47322330b231f3d80be", optional = true }
+cuda-host = { git = "https://github.com/nvidia/cuda-rust.git", rev = "8ac82ec761e950594db5f47322330b231f3d80be", optional = true }
 kernels = { path = "kernels", default-features = false, optional = true }
 ndarray-rand = "0.16.0"
 rand = "0.10.1"

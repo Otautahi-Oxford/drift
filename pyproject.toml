@@ -25,8 +25,8 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/lbparticles/astrodrift"
-Changelog = "https://github.com/lbparticles/astrodrift/blob/main/CHANGELOG.md"
+Repository = "https://github.com/otautahi-oxford/drift"
+Changelog = "https://github.com/otautahi-oxford/drift/blob/main/CHANGELOG.md"
 
 [tool.maturin]
 # ABI compatibility starts at CPython 3.13; supported minors are still tested.
