@@ -67,10 +67,11 @@ See [GPU Execution](gpu-execution) for the GPU stages and the scope of each timi
 To install from source:
 
 ```bash
-git clone https://github.com/lbparticles/astrodrift
+git clone https://github.com/otautahi-oxford/drift
 ```
 
-Enter the Nix development shell (`nix develop`) or use the provided devcontainer. Environment setup and the available `just` recipes are documented below.
+Enter the Nix development shell (`nix develop`) or use the provided devcontainer.
+Environment setup and the available `just` recipes are documented below.
 
 # Testing Instructions
 
