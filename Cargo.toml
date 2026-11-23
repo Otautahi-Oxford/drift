@@ -11,7 +11,7 @@ crate-type = ["rlib", "cdylib"]
 
 [dependencies]
 shared = { path = "shared" }
-pyo3 = "0.28.3"
+pyo3 = "0.30.1"
 cust = { git = "https://github.com/Rust-GPU/Rust-CUDA", package = "cust", branch = "main", optional = true }
 cuda-core = { workspace = true, optional = true }
 cuda-host = { workspace = true, optional = true }
@@ -20,10 +20,10 @@ ndarray-rand = "0.16.0"
 rand = "0.10.1"
 rayon = "1.11.0"
 libm = "0.2.11"
-numpy = "0.28.0"
+numpy = "0.30.0"
 libc = "0.2.177"
 log = "0.4.30"
-pyo3-log = "0.13.4"
+pyo3-log = "0.13.5"
 thiserror = "2.0.17"
 
 [build-dependencies]
@@ -48,7 +48,7 @@ cuda-oxide = ["dep:cuda-core", "dep:cuda-host", "dep:kernels", "kernels/cuda-oxi
 
 
 [target.'cfg(unix)'.dependencies]
-pyo3 = { version = "0.28", features = ["extension-module"] }
+pyo3 = { version = "0.30", features = ["extension-module"] }
 
 [target.'cfg(windows)'.dependencies]
 # Nothing here — we explicitly do NOT support Windows

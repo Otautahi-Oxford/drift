@@ -28,7 +28,7 @@ cargo install --locked --git https://github.com/NVIDIA/cuda-rust.git \
 
 Drift's default backend, `cuda-oxide`, lives in the `cuda-oxide/` directory of NVIDIA's `cuda-rust` monorepo and uses Rust 1.99.1. Drift's Rust-CUDA reference backend uses `nightly-2026-04-02` with LLVM 7. The image registers CUDA's NVVM library directory with the system loader.
 
-For upstream work, uncomment the `mounts` line in `.devcontainer/devcontainer.json` before creating the container. It mounts `../cuda-rust` at `/workspaces/cuda-rust`. Set `CUDA_RUST_PATH` on the host if your checkout lives elsewhere. Use **File: Add Folder to Workspace** to open it alongside Drift. To use its local CLI, install from the mount:
+For upstream work, uncomment the `mounts` line in `.devcontainer/devcontainer.json` before creating the container. It mounts `../cuda-rust` at `/workspaces/cuda-rust`, alongside Drift in the VS Code Explorer. Set `CUDA_RUST_PATH` on the host if your checkout lives elsewhere. To use its local CLI, install from the mount:
 
 ```bash
 cargo +1.99.1 install --locked --force \

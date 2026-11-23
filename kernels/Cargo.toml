@@ -9,7 +9,7 @@ cuda_std = { git = "https://github.com/Rust-GPU/Rust-CUDA", package = "cuda_std"
 cuda-core = { workspace = true, optional = true }
 cuda-device = { workspace = true, optional = true }
 cuda-host = { workspace = true, optional = true }
-glam = { version = "0.33.0", default-features = false, features = ["cuda", "nostd-libm", "u32"] }
+glam = { version = "0.34.3", default-features = false, features = ["cuda", "nostd-libm", "u32"] }
 libm = "0.2.11"
 shared = { path = "../shared" }
 

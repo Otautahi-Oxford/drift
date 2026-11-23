@@ -1,4 +1,4 @@
-FROM nvidia/cuda:13.0.0-devel-ubuntu24.04
+FROM nvidia/cuda:13.0.3-devel-ubuntu24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -99,13 +99,13 @@ RUN curl -fsSLO https://github.com/llvm/llvm-project/releases/download/llvmorg-7
     && cd / \
     && rm -rf /tmp/llvm-7-build
 
-ARG UV_VERSION=0.12.7
+ARG UV_VERSION=0.13.9
 ADD https://astral.sh/uv/${UV_VERSION}/install.sh /tmp/uv-installer.sh
 RUN UV_INSTALL_DIR=/usr/local/bin sh /tmp/uv-installer.sh \
     && rm /tmp/uv-installer.sh
 
-ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2026_4/
-ARG NSYS_PKG=NsightSystems-linux-cli-public-2026.4.1.191-3860507.deb
+ARG NSYS_URL=https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2026_6/
+ARG NSYS_PKG=nsightsystems-linux-cli-public-2026.6.1.251-39333969.deb
 RUN wget -q "${NSYS_URL}${NSYS_PKG}" \
     && dpkg -i "${NSYS_PKG}" \
     && rm "${NSYS_PKG}"
@@ -134,10 +134,10 @@ RUN curl -fsSL https://sh.rustup.rs \
         --component clippy \
         --component llvm-tools
 
-RUN uv python install 3.13.15 \
-    && uv tool install maturin@1.15.0 \
-    && uv tool install ruff@0.16.5 \
-    && uv tool install ty@0.0.75
+RUN uv python install 3.13.18 \
+    && uv tool install maturin@1.16.0 \
+    && uv tool install ruff@0.17.6 \
+    && uv tool install ty@0.0.108
 
 WORKDIR /tmp/drift-python
 RUN install -d -m 0777 /opt/drift-venv
