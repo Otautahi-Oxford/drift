@@ -6,12 +6,12 @@
 #
 #   nix develop
 #
-# Cargo fetches the pinned cuda-oxide libraries automatically. On the first
-# interactive entry, the shell installs the matching cargo-oxide frontend if it
-# is not present. Quiet Zed startup skips this installation. Run `nix develop`
+# Cargo fetches the pinned libraries from NVIDIA/cuda-rust. On the first
+# interactive entry, the shell installs the matching cargo-oxide frontend.
+# Quiet Zed startup skips this installation. Run `nix develop`
 # interactively once before using cuda-oxide through Zed.
 #
-# rust-toolchain.toml selects the default cuda-oxide nightly and components;
+# rust-toolchain.toml selects the default cuda-oxide compiler and components;
 # rustup installs them on the first Rust invocation. Install the older
 # toolchain once before using Rust-CUDA:
 #
@@ -48,8 +48,8 @@
           ];
           cuda = pkgs.cudaPackages_13_0;
           nvjitlink = cuda.libnvjitlink.lib;
-          cudaOxideRev =
-            (builtins.fromTOML (builtins.readFile ./Cargo.toml)).dependencies."cuda-host".rev;
+          cudaHost = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).workspace.dependencies.cuda-host;
+          oxideToolchain = (builtins.fromTOML (builtins.readFile ./rust-toolchain.toml)).toolchain.channel;
 
           # Rust-CUDA emits the legacy LLVM 7 NVVM dialect. Build LLVM 7 with
           # NVPTX support while cuda-oxide uses LLVM 21 below.
@@ -176,12 +176,9 @@
               export CARGO_HOME="''${CARGO_HOME:-$HOME/.cargo}"
               export PATH="${llvm21BinPath}:$CARGO_HOME/bin:$PATH"
 
-              if [ -z "''${DRIFT_QUIET:-}" ] && ! command -v cargo-oxide >/dev/null 2>&1; then
-                echo "Installing cargo-oxide ${cudaOxideRev}..." >&2
-                cargo +nightly-2026-08-28 install \
-                  --git https://github.com/NVlabs/cuda-oxide.git \
-                  --rev ${cudaOxideRev} \
-                  --locked --force cargo-oxide
+              if [ -z "''${DRIFT_QUIET:-}" ]; then
+                cargo +${oxideToolchain} install \
+                  --git ${cudaHost.git} --rev ${cudaHost.rev} --locked cargo-oxide
               fi
 
               # Self-configure local git hooks (pre-commit/pre-push gates

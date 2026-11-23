@@ -49,7 +49,7 @@ trajectory, _ = sim.run()  # A stationary background has no trajectory, so _ ign
 print(trajectory[-1])
 ```
 
-See the [Getting Started notebook](https://github.com/lbparticles/astrodrift/blob/main/notebooks/getting_started.ipynb) for a full guided example.
+See the [Getting Started notebook](https://github.com/Otautahi-Oxford/drift/blob/main/notebooks/getting_started.ipynb) for a full guided example.
 
 # Logging
 
@@ -64,21 +64,21 @@ logging.getLogger("drift").setLevel(logging.INFO)
 
 Use `DEBUG` to include stage progress and detailed dispatch information.
 
-See [GPU Execution](https://github.com/lbparticles/astrodrift/blob/main/docs/GPU_Execution.md) for the GPU stages and the scope of each timing record.
+See [GPU Execution](https://github.com/Otautahi-Oxford/drift/blob/main/docs/GPU_Execution.md) for the GPU stages and the scope of each timing record.
 
 # Contribution
 
 To install from source:
 
 ```bash
-git clone https://github.com/lbparticles/astrodrift
+git clone https://github.com/Otautahi-Oxford/drift
 ```
 
 Enter the Nix development shell (`nix develop`) or use the provided devcontainer. Environment setup and the available `just` recipes are documented below.
 
 # Testing Instructions
 
-See [Testing_Instructions.md](https://github.com/lbparticles/astrodrift/blob/main/docs/Testing_Instructions.md)
+See [Testing_Instructions.md](https://github.com/Otautahi-Oxford/drift/blob/main/docs/Testing_Instructions.md)
 
 # Contributors
 

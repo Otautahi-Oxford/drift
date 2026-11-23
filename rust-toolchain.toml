@@ -1,5 +1,4 @@
 [toolchain]
-# FIXME: cuda-oxide's nightly is the project default. Rust-CUDA still requires
-# nightly-2026-04-02; see docs/Testing_Instructions.md for its explicit commands.
-channel = "nightly-2026-08-28"
+# Match cuda-rust/cuda-oxide. The Rust-CUDA recipes select nightly-2026-04-02.
+channel = "1.99.1"
 components = ["clippy", "llvm-tools", "rust-src", "rustc-dev", "rustfmt", "rust-analyzer"]

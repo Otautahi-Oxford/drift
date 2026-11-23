@@ -9,22 +9,12 @@
   ],
   "remoteUser": "ubuntu",
   "updateRemoteUserUID": true,
-  "workspaceFolder": "/workspaces",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/astrodrift,type=bind",
-  "mounts": [
-    "source=${localEnv:CUDA_OXIDE_PATH:../cuda-oxide},target=/workspaces/cuda-oxide,type=bind"
-  ],
+  "workspaceFolder": "/workspaces/drift",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/drift,type=bind",
+  // Uncomment to work on a sibling cuda-rust checkout in the same container.
+  // "mounts": ["source=${localEnv:CUDA_RUST_PATH:../cuda-rust},target=/workspaces/cuda-rust,type=bind"],
   "containerEnv": {
-    "CUDA_HOME": "/usr/local/cuda",
-    "CUDA_PATH": "/usr/local/cuda",
-    "CUDA_TOOLKIT_PATH": "/usr/local/cuda",
-    "CUDA_OXIDE_LLC": "/usr/bin/llc-21",
-    "LIBCLANG_PATH": "/usr/lib/llvm-21/lib",
-    "LLVM_CONFIG_PATH": "/usr/bin/llvm-config-21",
-    "LLVM_CONFIG": "/usr/local/bin/llvm-config-7",
-    "LLVM_LINK_STATIC": "1",
-    "NVIDIA_DRIVER_CAPABILITIES": "all",
-    "UV_PROJECT_ENVIRONMENT": "/opt/drift-venv"
+    "NVIDIA_DRIVER_CAPABILITIES": "all"
   },
   "customizations": {
     "vscode": {
@@ -35,10 +25,6 @@
         "ms-python.python"
       ],
       "settings": {
-        "rust-analyzer.linkedProjects": [
-          "/workspaces/astrodrift/Cargo.toml",
-          "/workspaces/cuda-oxide/Cargo.toml"
-        ],
         "python.defaultInterpreterPath": "/opt/drift-venv/bin/python"
       }
     }
