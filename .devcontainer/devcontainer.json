@@ -9,7 +9,7 @@
   ],
   "remoteUser": "ubuntu",
   "updateRemoteUserUID": true,
-  "workspaceFolder": "/workspaces/drift",
+  "workspaceFolder": "/workspaces",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/drift,type=bind",
   // Uncomment to work on a sibling cuda-rust checkout in the same container.
   // "mounts": ["source=${localEnv:CUDA_RUST_PATH:../cuda-rust},target=/workspaces/cuda-rust,type=bind"],
