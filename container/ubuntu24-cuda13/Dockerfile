@@ -50,6 +50,7 @@ RUN apt-get update \
         python3 \
         python3-dev \
         python3-pip \
+        python3-venv \
         ripgrep \
         sudo \
         wget \
@@ -109,10 +110,11 @@ RUN wget -q "${NSYS_URL}${NSYS_PKG}" \
     && dpkg -i "${NSYS_PKG}" \
     && rm "${NSYS_PKG}"
 
-# cuda-oxide and Rust-CUDA require different compiler nightlies.
+# Drift uses 1.99.1 for cuda-oxide and the April nightly for Rust-CUDA.
+# The cuda-rust host and cuTile workspaces use 1.98.0.
 RUN curl -fsSL https://sh.rustup.rs \
         | sh -s -- --default-toolchain none --profile minimal -y \
-    && rustup toolchain install nightly-2026-08-28 \
+    && rustup toolchain install 1.99.1 \
         --profile minimal \
         --component rust-src \
         --component rustc-dev \
@@ -120,6 +122,9 @@ RUN curl -fsSL https://sh.rustup.rs \
         --component rustfmt \
         --component clippy \
         --component llvm-tools \
+    && rustup default 1.99.1 \
+    && rustup toolchain install 1.98.0 --profile minimal \
+        --component rust-src --component rustfmt --component clippy \
     && rustup toolchain install nightly-2026-04-02 \
         --profile minimal \
         --component rust-src \
@@ -167,5 +172,5 @@ RUN set -eux; \
 USER ubuntu
 ENV HOME=/home/ubuntu
 
-WORKDIR /workspaces/astrodrift
+WORKDIR /workspaces/drift
 CMD ["/bin/bash"]

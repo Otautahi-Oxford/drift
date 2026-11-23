@@ -19,19 +19,20 @@ just verify          # Regenerate fixtures and check both backends.
 
 ## Devcontainer
 
-The repository is mounted at `/workspaces/astrodrift` in the devcontainer. The image registers CUDA's NVVM library directory with the system loader, so both backends also work when entering the container directly rather than through VS Code.
-
-The devcontainer binds a sibling `cuda-oxide` checkout to `/workspaces/cuda-oxide`. It uses `../cuda-oxide` by default; if the checkout lives elsewhere, set `CUDA_OXIDE_PATH` on the host before opening the devcontainer:
+Open the Drift checkout in VS Code and run **Dev Containers: Reopen in Container**. From `/workspaces/drift`, install the `cargo-oxide` CLI once per new container using the same revision as `cuda-host` in Drift's `Cargo.toml`.
 
 ```bash
-export CUDA_OXIDE_PATH=/path/to/your/cuda-oxide
+cargo install --locked --git https://github.com/NVIDIA/cuda-rust.git \
+    --rev 754b6d10e26919dfb2689d4e1d33da56ad039918 cargo-oxide
 ```
 
-cuda-oxide is the default backend and uses the repository's `nightly-2026-08-28` toolchain. Install the `cargo-oxide` frontend from the mounted sibling checkout after creating the devcontainer:
+Drift's default backend, `cuda-oxide`, lives in the `cuda-oxide/` directory of NVIDIA's `cuda-rust` monorepo and uses Rust 1.99.1. Drift's Rust-CUDA reference backend uses `nightly-2026-04-02` with LLVM 7. The image registers CUDA's NVVM library directory with the system loader.
+
+For upstream work, uncomment the `mounts` line in `.devcontainer/devcontainer.json` before creating the container. It mounts `../cuda-rust` at `/workspaces/cuda-rust`. Set `CUDA_RUST_PATH` on the host if your checkout lives elsewhere. Use **File: Add Folder to Workspace** to open it alongside Drift. To use its local CLI, install from the mount:
 
 ```bash
-cargo +nightly-2026-08-28 install \
-    --path /workspaces/cuda-oxide/crates/cargo-oxide --locked --force
+cargo +1.99.1 install --locked --force \
+    --path /workspaces/cuda-rust/cuda-oxide/crates/cargo-oxide
 ```
 
 ## Nix
@@ -114,17 +115,18 @@ cargo +nightly-2026-04-02 clippy \
 
 The two Rust-CUDA allowances cover `cuda_builder` injecting `no_std` into the already-`no_std` shared crate. All other warnings remain errors.
 
-## Local cuda-oxide Development
+## Testing local cuda-rust changes
 
-To test changes from the sibling checkout, create an uncommitted `.cargo/config.toml`:
+Drift normally builds against the Git revision in `Cargo.lock`. To use edits from the sibling checkout, append this temporary override to Drift's `.cargo/config.toml`:
 
 ```toml
-[patch."https://github.com/NVlabs/cuda-oxide.git"]
-cuda-device = { path = "../cuda-oxide/crates/cuda-device" }
-cuda-host = { path = "../cuda-oxide/crates/cuda-host" }
+[patch."https://github.com/NVIDIA/cuda-rust.git"]
+cuda-core = { path = "../cuda-rust/cuda-core" }
+cuda-device = { path = "../cuda-rust/cuda-oxide/crates/cuda-device" }
+cuda-host = { path = "../cuda-rust/cuda-oxide/crates/cuda-host" }
 ```
 
-Cargo will update the lockfile while the path override is active; do not commit that source change. Reinstall the frontend after changing `cargo-oxide` itself. Remove the override to return to drift's pinned cuda-oxide revision.
+Run `cargo metadata --format-version 1 > /dev/null` once to update the local lockfile before using Drift's `--locked` recipes. Keep the patch and lockfile changes local. To return to the pinned revision, remove the patch section and restore the corresponding lockfile changes.
 
 ## Wheel Builds
 
